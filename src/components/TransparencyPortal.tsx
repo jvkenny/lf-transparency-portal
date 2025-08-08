@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ShieldQuestion, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
 
+import CatalogCard from "./CatalogCard";
+import DashboardCard from "./DashboardCard";
 /*
   Lake Forest Transparency Portal — Single-file demo
   --------------------------------------------------
@@ -14,7 +16,7 @@ import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, Thumbs
   3) Ensure WCAG (labels, roles, focus states) — this demo includes basics.
 */
 
-export default function TransparencyPortalDemo() {
+export default function TransparencyPortal() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState(null as null | Answer);
   const [loading, setLoading] = useState(false);
@@ -434,27 +436,3 @@ export default function TransparencyPortalDemo() {
   );
 }
 
-// Small presentational cards
-function CatalogCard({ title, details, href }: { title: string; details: string; href: string }) {
-  return (
-    <a href={href} className="block rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm hover:shadow-md transition">
-      <div className="font-medium">{title}</div>
-      <div className="text-sm text-neutral-600 mt-1">{details}</div>
-      <div className="mt-3 inline-flex items-center gap-1 text-sm text-neutral-700">
-        View dataset <ChevronRight className="w-4 h-4" />
-      </div>
-    </a>
-  );
-}
-
-function DashboardCard({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
-      <div className="font-medium">{title}</div>
-      <div className="text-sm text-neutral-600 mt-1">{desc}</div>
-      <div className="mt-3 inline-flex items-center gap-1 text-sm text-neutral-700">
-        Open dashboard <ChevronRight className="w-4 h-4" />
-      </div>
-    </div>
-  );
-}
