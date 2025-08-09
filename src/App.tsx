@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import TransparencyPortal from './components/TransparencyPortal'
 import MapsPage from './components/MapsPage'
+import FoiaCommonsPage from './pages/foia-commons'
 
 export default function App() {
   const location = useLocation()
@@ -17,6 +18,7 @@ export default function App() {
             </motion.div>
           }
         />
+        <Route path="/foia-commons" element={<FoiaCommonsPage />} />
         <Route
           path="/maps/*"
           element={
