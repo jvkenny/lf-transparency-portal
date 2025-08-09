@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        forest: "#14532d",
+        "forest-light": "#e3f4e0",
+      },
+    },
   },
   plugins: [],
 };
