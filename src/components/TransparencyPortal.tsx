@@ -43,6 +43,21 @@ export default function TransparencyPortal() {
     []
   );
 
+  const navItems = useMemo(
+    () => [
+      { id: "quick-tasks", label: "Tasks" },
+      { id: "maps", label: "Maps" },
+      { id: "open-data", label: "Open Data" },
+      { id: "dashboards", label: "Dashboards" },
+      { id: "foia", label: "FOIA" },
+    ],
+    []
+  );
+
+  function scrollToSection(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }
+
   async function askAI(prompt: string): Promise<Answer> {
     // In production: POST to your server (do NOT call OpenAI directly from the browser)
     // const res = await fetch("/api/ask", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ prompt })});
@@ -156,19 +171,30 @@ export default function TransparencyPortal() {
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-neutral-200">
-        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-forest text-white shadow">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center">
           <div className="flex items-center gap-3">
             <MessageSquare className="w-6 h-6" aria-hidden />
             <span className="font-semibold tracking-tight">Lake Forest Transparency Portal</span>
           </div>
+          <nav className="hidden md:flex flex-1 justify-center items-center gap-6 text-sm">
+            {navItems.map((n) => (
+              <button
+                key={n.id}
+                onClick={() => scrollToSection(n.id)}
+                className="hover:underline transform transition hover:scale-110"
+              >
+                {n.label}
+              </button>
+            ))}
+          </nav>
           <div className="flex items-center gap-3 text-sm">
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={demoMode}
                 onChange={(e) => setDemoMode(e.target.checked)}
-                className="accent-neutral-800"
+                className="accent-forest-dark"
                 aria-label="Toggle demo mode"
               />
               <span className="hidden sm:inline">Demo Mode</span>
@@ -182,7 +208,7 @@ export default function TransparencyPortal() {
       </header>
 
       {/* Hero AI Q&A */}
-      <section className="bg-gradient-to-b from-white to-neutral-50 border-b border-neutral-200">
+      <section className="bg-gradient-to-b from-forest-light/30 to-white border-b border-forest">
         <div className="mx-auto max-w-3xl px-4 py-10">
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">Ask Lake Forest</h1>
           <p className="text-neutral-600 mb-6">Ask about services, permits, maps, or city data. I’ll include sources in every answer.</p>
@@ -197,12 +223,12 @@ export default function TransparencyPortal() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="e.g., What’s my trash & recycling day?"
-              className="w-full rounded-2xl border border-neutral-300 bg-white px-4 py-3 pr-12 shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+              className="w-full rounded-2xl border border-neutral-300 bg-white px-4 py-3 pr-12 shadow-sm focus:outline-none focus:ring-2 focus:ring-forest-dark"
             />
             <button
               type="submit"
               disabled={loading}
-              className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-neutral-900 text-white px-3 py-2 text-sm hover:bg-neutral-800 disabled:opacity-50"
+              className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-forest-dark text-white px-3 py-2 text-sm hover:bg-forest disabled:opacity-50"
               aria-label="Send question"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
@@ -404,7 +430,7 @@ export default function TransparencyPortal() {
             <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
               <h3 className="font-medium">Submit a FOIA</h3>
               <p className="text-neutral-700 mt-2 mb-3">You’ll receive a confirmation email and estimated response timeframe.</p>
-              <a href="#" className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-neutral-900 text-white px-3 py-2 text-sm hover:bg-neutral-800">
+              <a href="#" className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-forest-dark text-white px-3 py-2 text-sm hover:bg-forest">
                 <FileText className="w-4 h-4" /> Start FOIA request
               </a>
             </div>
