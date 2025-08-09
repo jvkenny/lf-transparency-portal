@@ -1,0 +1,54 @@
+[
+  {
+    "title": "Parcel Boundary Shapefiles",
+    "description": "Digital shapefiles outlining property parcel boundaries.",
+    "relatedDatasetIds": ["parcel-boundaries"],
+    "howToSteps": [
+      "Submit a FOIA request to the county GIS department specifying parcel boundary shapefiles in your desired projection.",
+      "Ask for accompanying metadata and data dictionary where available."
+    ],
+    "officialLinks": [
+      { "label": "Sample Parcel FOIA Request", "href": "https://www.foia.gov" }
+    ],
+    "notes": "Many jurisdictions provide parcels as open data; confirm licensing or fees before submitting."
+  },
+  {
+    "title": "Zoning District Map",
+    "description": "Polygon dataset delineating local zoning districts and classifications.",
+    "relatedDatasetIds": ["zoning-districts"],
+    "howToSteps": [
+      "Request the most recent zoning district dataset from the planning department.",
+      "Specify that the data should include zone codes and descriptions."
+    ],
+    "officialLinks": [
+      { "label": "Planning Department FOIA Instructions", "href": "https://www.foia.gov" }
+    ],
+    "notes": "Zoning layers are frequently updated; confirm the publication date of the dataset."
+  },
+  {
+    "title": "Address Point Database",
+    "description": "Point dataset containing geocoded address locations.",
+    "relatedDatasetIds": ["address-points"],
+    "howToSteps": [
+      "File a request with the E911 addressing office for the full address point database.",
+      "Clarify preferred file format such as CSV or shapefile."
+    ],
+    "officialLinks": [
+      { "label": "Addressing Office Contact", "href": "https://www.foia.gov" }
+    ],
+    "notes": "Some regions restrict release of sensitive address information; verify any privacy limitations."
+  },
+  {
+    "title": "Recent Aerial Imagery",
+    "description": "Latest available orthophotography for the area of interest.",
+    "relatedDatasetIds": ["aerial-imagery"],
+    "howToSteps": [
+      "Contact the state GIS agency to request recent aerial imagery tiles or mosaics.",
+      "Include geographic extent and resolution requirements in the request."
+    ],
+    "officialLinks": [
+      { "label": "State GIS FOIA Guidance", "href": "https://www.foia.gov" }
+    ],
+    "notes": "High-resolution imagery may involve large file transfers; inquire about delivery methods."
+  }
+]
