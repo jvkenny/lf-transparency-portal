@@ -1,14 +1,13 @@
 import { useMemo, useRef, useState } from "react";
-import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ShieldQuestion, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
+import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
 
 import CatalogCard from "./CatalogCard";
-import DashboardCard from "./DashboardCard";
 /*
   Lake Forest Transparency Portal — Single-file demo
   --------------------------------------------------
   - Drop-in React component with TailwindCSS classes
   - "Demo Mode" returns mocked answers; switch to API mode by wiring askAI()
-  - Layout includes: AI Q&A hero, Quick Tasks, Maps, Open Data, Dashboards, FOIA, and footer
+  - Layout includes: AI Q&A hero and GIS layer catalog
 
   How to use in production (high level):
   1) Replace askAI() with a secure backend endpoint (e.g., /api/ask) that calls your RAG + OpenAI.
@@ -33,15 +32,38 @@ export default function TransparencyPortal() {
 
   const chips = useMemo(
     () => [
-      "Trash & recycling day at my address",
-      "Road construction this week",
-      "Tree removal permit",
-      "Show zoning map for my address",
-      "Download the parcels dataset",
-      "How to submit a FOIA request",
+      "Show Congressional Districts",
+      "View Snow Removal Routes",
+      "Find my Garbage Collection Area",
+      "Open Zoning Map",
+      "Download the Parcels layer",
+      "See Hydrology features",
     ],
     []
   );
+
+  const gisLayers = [
+    "Congressional Districts",
+    "Recreation_Area_POLY",
+    "Hydrology_POLY",
+    "Wards",
+    "State Senate Districts",
+    "State House of Representatives Districts",
+    "Snow Removal Areas",
+    "Snow Removal Routes",
+    "Garbage Collection Areas",
+    "Precincts",
+    "ImportantPlace_POLY",
+    "Transportation_LINE",
+    "Conservancy Area",
+    "Parcels",
+    "Municipal_POLY",
+    "HROSPD",
+    "Zoning_POLY",
+    "Street Label",
+    "Major Road Label",
+    "Municipal Boundary Mask",
+  ];
 
   async function askAI(prompt: string): Promise<Answer> {
     // In production: POST to your server (do NOT call OpenAI directly from the browser)
@@ -68,12 +90,12 @@ export default function TransparencyPortal() {
         quickActions: [
           {
             label: "Look up my pickup day",
-            href: "#tasks-refuse",
+            href: "#",
             icon: <Search className="w-4 h-4" />,
           },
           {
             label: "Report missed pickup",
-            href: "#report-issue",
+            href: "#",
             icon: <AlertTriangle className="w-4 h-4" />,
           },
         ],
@@ -97,8 +119,8 @@ export default function TransparencyPortal() {
           },
         ],
         quickActions: [
-          { label: "Open Zoning Map", href: "#maps", icon: <MapIcon className="w-4 h-4" /> },
-          { label: "Read ordinance", href: "#open-data", icon: <FileText className="w-4 h-4" /> },
+          { label: "Open Zoning Map", href: "#layers", icon: <MapIcon className="w-4 h-4" /> },
+          { label: "Read ordinance", href: "#layers", icon: <FileText className="w-4 h-4" /> },
         ],
       };
     }
@@ -113,8 +135,8 @@ export default function TransparencyPortal() {
           { title: "Open Data Catalog (Hub)", url: "https://www.arcgis.com/" },
         ],
         quickActions: [
-          { label: "Top requested datasets", href: "#foia", icon: <Download className="w-4 h-4" /> },
-          { label: "Start FOIA request", href: "#foia", icon: <FileText className="w-4 h-4" /> },
+          { label: "Top requested datasets", href: "#layers", icon: <Download className="w-4 h-4" /> },
+          { label: "Start FOIA request", href: "#", icon: <FileText className="w-4 h-4" /> },
         ],
       };
     }
@@ -127,11 +149,9 @@ export default function TransparencyPortal() {
         { title: "City Website", url: "https://www.cityoflakeforest.com/" },
         { title: "Open Data Catalog (AGOL)", url: "https://www.arcgis.com/" },
       ],
-      quickActions: [
-        { label: "Explore maps", href: "#maps", icon: <MapIcon className="w-4 h-4" /> },
-        { label: "Open data catalog", href: "#open-data", icon: <Download className="w-4 h-4" /> },
-        { label: "FOIA options", href: "#foia", icon: <FileText className="w-4 h-4" /> },
-      ],
+        quickActions: [
+          { label: "Explore GIS layers", href: "#layers", icon: <MapIcon className="w-4 h-4" /> },
+        ],
     };
   }
 
@@ -173,10 +193,6 @@ export default function TransparencyPortal() {
               />
               <span className="hidden sm:inline">Demo Mode</span>
             </label>
-            <a href="#governance" className="inline-flex items-center gap-1 hover:underline">
-              <ShieldQuestion className="w-4 h-4" />
-              AI Policy
-            </a>
           </div>
         </div>
       </header>
@@ -304,124 +320,15 @@ export default function TransparencyPortal() {
         </div>
       </section>
 
-      {/* Main Content Sections */}
-      <main className="mx-auto max-w-6xl px-4 py-10 space-y-14">
-        {/* Quick Tasks */}
-        <section id="quick-tasks">
-          <h2 className="text-xl font-semibold mb-4">Quick Tasks</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { id: "tasks-refuse", title: "Pay utility bill", href: "#", icon: <FileText className="w-5 h-5" /> },
-              { title: "Report a pothole", href: "#report-issue", icon: <AlertTriangle className="w-5 h-5" /> },
-              { title: "Road projects map", href: "#maps", icon: <MapIcon className="w-5 h-5" /> },
-              { title: "Trash & recycling schedule", href: "#", icon: <Search className="w-5 h-5" /> },
-              { title: "Street sweeping", href: "#", icon: <Download className="w-5 h-5" /> },
-              { title: "Snow routes", href: "#", icon: <MapIcon className="w-5 h-5" /> },
-            ].map((card, i) => (
-              <a key={i} href={card.href} className="group rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm hover:shadow-md transition">
-                <div className="flex items-center gap-3">
-                  <div>{card.icon}</div>
-                  <div>
-                    <div className="font-medium group-hover:underline">{card.title}</div>
-                    <div className="text-sm text-neutral-600">Fast links to common services</div>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        {/* Self-Serve Maps */}
-        <section id="maps">
-          <h2 className="text-xl font-semibold mb-4">Self‑Serve Maps</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { title: "Parcels (Public)", href: "#", desc: "Search parcels; click for assessor link." },
-              { title: "Zoning Map", href: "#", desc: "View zoning districts & ordinance link." },
-              { title: "Construction & Detours", href: "#", desc: "Active capital projects and detours." },
-              { title: "Snow & Sweeping", href: "#", desc: "Plow routes and schedules (public)." },
-              { title: "Tree Canopy & Planting", href: "#", desc: "Coverage and planting opportunities." },
-              { title: "Parks & Trails", href: "#", desc: "Recreation areas and access points." },
-            ].map((m, i) => (
-              <a key={i} href={m.href} className="block rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm hover:shadow-md transition">
-                <div className="font-medium mb-1">{m.title}</div>
-                <div className="text-sm text-neutral-600">{m.desc}</div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        {/* Open Data Catalog */}
-        <section id="open-data">
-          <h2 className="text-xl font-semibold mb-2">Open Data Catalog</h2>
-          <p className="text-neutral-600 mb-4">Browse by topic or format. Each dataset page lists schema, update cadence, steward, license, and API/Service links.</p>
+      {/* Main Content */}
+      <main className="mx-auto max-w-6xl px-4 py-10">
+        <section id="layers">
+          <h2 className="text-xl font-semibold mb-2">GIS Layers</h2>
+          <p className="text-neutral-600 mb-4">Explore available GIS layers for Lake Forest.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <CatalogCard
-              title="Parcels"
-              details="Feature Layer • Updated monthly"
-              href="#"
-            />
-            <CatalogCard
-              title="Zoning Districts"
-              details="Feature Layer • Updated on ordinance change"
-              href="#"
-            />
-            <CatalogCard
-              title="Road Projects (Capital)"
-              details="Feature Layer + Dashboard • Weekly"
-              href="#"
-            />
-            <CatalogCard title="Tree Inventory (Public)" details="Feature Layer • Quarterly" href="#" />
-          </div>
-        </section>
-
-        {/* Dashboards & Performance */}
-        <section id="dashboards">
-          <h2 className="text-xl font-semibold mb-4">Dashboards & Performance</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <DashboardCard title="Service Requests" desc="Status and closure rates (public rollups)." />
-            <DashboardCard title="Capital Projects" desc="Schedules, costs, and detours." />
-            <DashboardCard title="Sustainability/Climate" desc="KPIs on energy, canopy, and heat." />
-            <DashboardCard title="Water Usage (Public)" desc="Citywide summaries; no PII." />
-          </div>
-        </section>
-
-        {/* FOIA Corner */}
-        <section id="foia">
-          <h2 className="text-xl font-semibold mb-2">FOIA Corner</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className="lg:col-span-2 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
-              <h3 className="font-medium">Before you file</h3>
-              <p className="text-neutral-700 mt-2">
-                Many commonly requested records are available without a FOIA. Explore our Open Data Catalog and public maps first.
-              </p>
-              <ul className="list-disc pl-6 mt-3 text-neutral-700 space-y-1">
-                <li>Top requested datasets: Parcels, Zoning, Capital Projects</li>
-                <li>Public dashboards: Projects, Service Requests, Sustainability</li>
-                <li>If you still need specific records, submit a FOIA below.</li>
-              </ul>
-            </div>
-            <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
-              <h3 className="font-medium">Submit a FOIA</h3>
-              <p className="text-neutral-700 mt-2 mb-3">You’ll receive a confirmation email and estimated response timeframe.</p>
-              <a href="#" className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-neutral-900 text-white px-3 py-2 text-sm hover:bg-neutral-800">
-                <FileText className="w-4 h-4" /> Start FOIA request
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Governance & Safety */}
-        <section id="governance">
-          <h2 className="text-xl font-semibold mb-2">AI Governance & Safety</h2>
-          <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
-            <ul className="list-disc pl-6 text-neutral-700 space-y-1">
-              <li>Answers always include links to official sources.</li>
-              <li>No PII or internal/sensitive utility details are returned.</li>
-              <li>Ambiguous questions trigger clarifying follow-ups.</li>
-              <li>Abuse is rate-limited and moderated.</li>
-              <li>Accessible: keyboard navigation, labels, focus states, contrast.</li>
-            </ul>
+            {gisLayers.map((name) => (
+              <CatalogCard key={name} title={name} details="Feature Layer" href="#" />
+            ))}
           </div>
         </section>
       </main>
