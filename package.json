@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-"homepage": "https://vibrantantelope.github.io/lf-transparency-portal/"
-
+  "homepage": "https://vibrantantelope.github.io/lf-transparency-portal/",
   "dependencies": {
     "lucide-react": "^0.539.0",
     "react": "^19.1.1",
