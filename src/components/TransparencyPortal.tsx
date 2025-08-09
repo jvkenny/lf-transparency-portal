@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState } from "react";
-import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ShieldQuestion, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ShieldQuestion, ChevronRight, CheckCircle, Link as LinkIcon, ChevronUp } from "lucide-react";
 
 import CatalogCard from "./CatalogCard";
 import DashboardCard from "./DashboardCard";
@@ -22,6 +22,7 @@ export default function TransparencyPortal() {
   const [loading, setLoading] = useState(false);
   const [demoMode, setDemoMode] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [showTop, setShowTop] = useState(false);
 
   type Source = { title: string; url: string; updated?: string };
   type Answer = {
@@ -42,6 +43,31 @@ export default function TransparencyPortal() {
     ],
     []
   );
+
+  const navItems = useMemo(
+    () => [
+      { id: "quick-tasks", label: "Tasks" },
+      { id: "maps", label: "Maps" },
+      { id: "open-data", label: "Data" },
+      { id: "dashboards", label: "Dashboards" },
+      { id: "foia", label: "FOIA" },
+    ],
+    []
+  );
+
+  function scrollToSection(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   async function askAI(prompt: string): Promise<Answer> {
     // In production: POST to your server (do NOT call OpenAI directly from the browser)
@@ -154,21 +180,32 @@ export default function TransparencyPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900">
+    <div className="min-h-screen bg-forest-light text-neutral-900">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-neutral-200">
-        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-forest/95 text-white backdrop-blur border-b border-forest">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center">
           <div className="flex items-center gap-3">
             <MessageSquare className="w-6 h-6" aria-hidden />
             <span className="font-semibold tracking-tight">Lake Forest Transparency Portal</span>
           </div>
+          <nav className="hidden md:flex flex-1 justify-center gap-6 text-sm">
+            {navItems.map((n) => (
+              <button
+                key={n.id}
+                onClick={() => scrollToSection(n.id)}
+                className="hover:underline"
+              >
+                {n.label}
+              </button>
+            ))}
+          </nav>
           <div className="flex items-center gap-3 text-sm">
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={demoMode}
                 onChange={(e) => setDemoMode(e.target.checked)}
-                className="accent-neutral-800"
+                className="accent-forest"
                 aria-label="Toggle demo mode"
               />
               <span className="hidden sm:inline">Demo Mode</span>
@@ -182,7 +219,7 @@ export default function TransparencyPortal() {
       </header>
 
       {/* Hero AI Q&A */}
-      <section className="bg-gradient-to-b from-white to-neutral-50 border-b border-neutral-200">
+      <section className="bg-gradient-to-b from-white to-forest-light border-b border-forest">
         <div className="mx-auto max-w-3xl px-4 py-10">
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">Ask Lake Forest</h1>
           <p className="text-neutral-600 mb-6">Ask about services, permits, maps, or city data. I’ll include sources in every answer.</p>
@@ -197,12 +234,12 @@ export default function TransparencyPortal() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="e.g., What’s my trash & recycling day?"
-              className="w-full rounded-2xl border border-neutral-300 bg-white px-4 py-3 pr-12 shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+              className="w-full rounded-2xl border border-neutral-300 bg-white px-4 py-3 pr-12 shadow-sm focus:outline-none focus:ring-2 focus:ring-forest"
             />
             <button
               type="submit"
               disabled={loading}
-              className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-neutral-900 text-white px-3 py-2 text-sm hover:bg-neutral-800 disabled:opacity-50"
+              className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-xl border border-forest bg-forest text-white px-3 py-2 text-sm hover:bg-forest/90 disabled:opacity-50"
               aria-label="Send question"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
@@ -404,9 +441,9 @@ export default function TransparencyPortal() {
             <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
               <h3 className="font-medium">Submit a FOIA</h3>
               <p className="text-neutral-700 mt-2 mb-3">You’ll receive a confirmation email and estimated response timeframe.</p>
-              <a href="#" className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-neutral-900 text-white px-3 py-2 text-sm hover:bg-neutral-800">
-                <FileText className="w-4 h-4" /> Start FOIA request
-              </a>
+                <a href="#" className="inline-flex items-center gap-2 rounded-xl border border-forest bg-forest text-white px-3 py-2 text-sm hover:bg-forest/90">
+                  <FileText className="w-4 h-4" /> Start FOIA request
+                </a>
             </div>
           </div>
         </section>
@@ -427,12 +464,21 @@ export default function TransparencyPortal() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-14 border-t border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-neutral-600">
-          © {new Date().getFullYear()} City of Lake Forest · Built for transparency and self‑service
-        </div>
-      </footer>
-    </div>
+        <footer className="mt-14 border-t border-neutral-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-neutral-600">
+            © {new Date().getFullYear()} City of Lake Forest · Built for transparency and self‑service
+          </div>
+        </footer>
+        {showTop && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-6 right-6 rounded-full bg-forest text-white p-3 shadow-lg hover:bg-forest/90"
+            aria-label="Scroll to top"
+          >
+            <ChevronUp className="w-5 h-5" />
+          </button>
+        )}
+      </div>
   );
 }
 
