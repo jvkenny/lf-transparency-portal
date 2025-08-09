@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ShieldQuestion, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
 
 import CatalogCard from "./CatalogCard";
@@ -362,17 +363,17 @@ export default function TransparencyPortal() {
           <h2 className="text-xl font-semibold mb-4">Self‑Serve Maps</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { title: "Parcels (Public)", href: "#", desc: "Search parcels; click for assessor link." },
-              { title: "Zoning Map", href: "#", desc: "View zoning districts & ordinance link." },
-              { title: "Construction & Detours", href: "#", desc: "Active capital projects and detours." },
-              { title: "Snow & Sweeping", href: "#", desc: "Plow routes and schedules (public)." },
-              { title: "Tree Canopy & Planting", href: "#", desc: "Coverage and planting opportunities." },
-              { title: "Parks & Trails", href: "#", desc: "Recreation areas and access points." },
+              { title: "Parcels (Public)", to: "/maps/parcels", desc: "Search parcels; click for assessor link." },
+              { title: "Zoning Map", to: "/maps/zoning", desc: "View zoning districts & ordinance link." },
+              { title: "Construction & Detours", to: "/maps/construction-detours", desc: "Active capital projects and detours." },
+              { title: "Snow & Sweeping", to: "/maps/snow-sweeping", desc: "Plow routes and schedules (public)." },
+              { title: "Tree Canopy & Planting", to: "/maps/tree-canopy", desc: "Coverage and planting opportunities." },
+              { title: "Parks & Trails", to: "/maps/parks-trails", desc: "Recreation areas and access points." },
             ].map((m, i) => (
-              <a key={i} href={m.href} className="block rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm hover:shadow-md transition">
+              <Link key={i} to={m.to} className="block rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm hover:shadow-md transition">
                 <div className="font-medium mb-1">{m.title}</div>
                 <div className="text-sm text-neutral-600">{m.desc}</div>
-              </a>
+              </Link>
             ))}
           </div>
         </section>
