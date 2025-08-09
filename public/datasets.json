@@ -1,0 +1,26 @@
+[
+  {
+    "id": "parcel-boundaries",
+    "title": "Parcel Boundaries",
+    "description": "Property parcel boundaries for the jurisdiction.",
+    "source": "County GIS Department"
+  },
+  {
+    "id": "zoning-districts",
+    "title": "Zoning Districts",
+    "description": "Zoning district boundaries and classifications.",
+    "source": "Planning Department"
+  },
+  {
+    "id": "address-points",
+    "title": "Address Points",
+    "description": "Geocoded address point locations.",
+    "source": "E911 Addressing"
+  },
+  {
+    "id": "aerial-imagery",
+    "title": "Aerial Imagery",
+    "description": "Latest orthophotography covering the area.",
+    "source": "State GIS Agency"
+  }
+]
