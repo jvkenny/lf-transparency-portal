@@ -1,4 +1,4 @@
-# Lake Forest Transparency Portal
+# generic municipality Transparency Portal
 
 This app is built from a single-file template and organized into reusable React components with Tailwind CSS.
 

@@ -5,7 +5,7 @@ import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, Thumbs
 import CatalogCard from "./CatalogCard";
 import DashboardCard from "./DashboardCard";
 /*
-  Lake Forest Transparency Portal — Single-file demo
+  generic municipality Transparency Portal — Single-file demo
   --------------------------------------------------
   - Drop-in React component with TailwindCSS classes
   - "Demo Mode" returns mocked answers; switch to API mode by wiring askAI()
@@ -77,7 +77,7 @@ export default function TransparencyPortal() {
         sources: [
           {
             title: "Refuse, Recycling & Yard Waste",
-            url: "https://www.cityoflakeforest.com/",
+            url: "https://www.genericmunicipality.gov/",
             updated: "Updated: Jul 2025",
           },
         ],
@@ -109,7 +109,7 @@ export default function TransparencyPortal() {
           },
           {
             title: "Zoning Ordinance",
-            url: "https://www.cityoflakeforest.com/",
+            url: "https://www.genericmunicipality.gov/",
           },
         ],
         quickActions: [
@@ -125,7 +125,7 @@ export default function TransparencyPortal() {
           "Many commonly requested datasets are available without a FOIA. If you still need a record, submit a FOIA online and you’ll receive confirmation with the expected response timeline.",
         confidence: "High",
         sources: [
-          { title: "FOIA – Public Records", url: "https://www.cityoflakeforest.com/" },
+          { title: "FOIA – Public Records", url: "https://www.genericmunicipality.gov/" },
           { title: "Open Data Catalog (Hub)", url: "https://www.arcgis.com/" },
         ],
         quickActions: [
@@ -140,7 +140,7 @@ export default function TransparencyPortal() {
         "I couldn’t confidently answer that yet. Please refine your question or open one of the featured resources below. You can also submit a FOIA request if needed.",
       confidence: "Low",
       sources: [
-        { title: "City Website", url: "https://www.cityoflakeforest.com/" },
+        { title: "City Website", url: "https://www.genericmunicipality.gov/" },
         { title: "Open Data Catalog (AGOL)", url: "https://www.arcgis.com/" },
       ],
       quickActions: [
@@ -176,7 +176,7 @@ export default function TransparencyPortal() {
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center">
           <div className="flex items-center gap-3">
             <MessageSquare className="w-6 h-6" aria-hidden />
-            <span className="font-semibold tracking-tight">Lake Forest Transparency Portal</span>
+            <span className="font-semibold tracking-tight">generic municipality Transparency Portal</span>
           </div>
           <nav className="hidden md:flex flex-1 justify-center items-center gap-6 text-sm">
             {navItems.map((n) => (
@@ -211,7 +211,7 @@ export default function TransparencyPortal() {
       {/* Hero AI Q&A */}
       <section className="bg-gradient-to-b from-forest-light/30 to-white border-b border-forest">
         <div className="mx-auto max-w-3xl px-4 py-10">
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">Ask Lake Forest</h1>
+          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">Ask generic municipality</h1>
           <p className="text-neutral-600 mb-6">Ask about services, permits, maps, or city data. I’ll include sources in every answer.</p>
 
           <form onSubmit={onAsk} className="relative">
@@ -468,7 +468,7 @@ export default function TransparencyPortal() {
       {/* Footer */}
       <footer className="mt-14 border-t border-neutral-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-neutral-600">
-          © {new Date().getFullYear()} City of Lake Forest · Built for transparency and self‑service
+          © {new Date().getFullYear()} City of generic municipality · Built for transparency and self‑service
         </div>
       </footer>
     </div>
