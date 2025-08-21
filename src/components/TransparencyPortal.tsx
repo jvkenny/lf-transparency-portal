@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ShieldQuestion, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
+import { Search, Send, Map as MapIcon, Download, FileText, AlertTriangle, ThumbsUp, ThumbsDown, Loader2, ExternalLink, MessageSquare, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
 
 import CatalogCard from "./CatalogCard";
 import DashboardCard from "./DashboardCard";
@@ -200,10 +200,6 @@ export default function TransparencyPortal() {
               />
               <span className="hidden sm:inline">Demo Mode</span>
             </label>
-            <a href="#governance" className="inline-flex items-center gap-1 hover:underline">
-              <ShieldQuestion className="w-4 h-4" />
-              AI Policy
-            </a>
           </div>
         </div>
       </header>
@@ -450,19 +446,6 @@ export default function TransparencyPortal() {
           </div>
         </section>
 
-        {/* Governance & Safety */}
-        <section id="governance">
-          <h2 className="text-xl font-semibold mb-2">AI Governance & Safety</h2>
-          <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
-            <ul className="list-disc pl-6 text-neutral-700 space-y-1">
-              <li>Answers always include links to official sources.</li>
-              <li>No PII or internal/sensitive utility details are returned.</li>
-              <li>Ambiguous questions trigger clarifying follow-ups.</li>
-              <li>Abuse is rate-limited and moderated.</li>
-              <li>Accessible: keyboard navigation, labels, focus states, contrast.</li>
-            </ul>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
